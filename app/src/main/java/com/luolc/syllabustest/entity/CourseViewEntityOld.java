@@ -1,13 +1,9 @@
-package com.luolc.litesyllabusview.entity;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.luolc.syllabustest.entity;
 
 /**
- * Created by LuoLiangchen on 16/2/11.
+ * Created by LuoLiangchen on 16/2/12.
  */
-public class CourseEntity {
-    private int cid;
+public class CourseViewEntityOld {
     private String code;
     private String name;
     private String department;
@@ -16,18 +12,10 @@ public class CourseEntity {
     private int classNumber;
     private int startWeek;
     private int endWeek;
-    private ArrayList<CourseTimeEntity> time;
+    private CourseTimeEntity time;
     private String position;
     private String examTime;
     private String examPosition;
-
-    public int getCid() {
-        return cid;
-    }
-
-    public void setCid(int cid) {
-        this.cid = cid;
-    }
 
     public String getCode() {
         return code;
@@ -93,11 +81,11 @@ public class CourseEntity {
         this.endWeek = endWeek;
     }
 
-    public ArrayList<CourseTimeEntity> getTime() {
+    public CourseTimeEntity getTime() {
         return time;
     }
 
-    public void setTime(ArrayList<CourseTimeEntity> time) {
+    public void setTime(CourseTimeEntity time) {
         this.time = time;
     }
 
@@ -135,7 +123,7 @@ public class CourseEntity {
 
     private int source;
 
-    public class CourseTimeEntity {
+    public static class CourseTimeEntity {
         private int weekday;
         private int startSection;
         private int endSection;

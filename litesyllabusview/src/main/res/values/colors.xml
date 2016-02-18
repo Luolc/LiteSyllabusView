@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="divider">#B6B6B6</color>
+    <color name="divider">#33FFFFFF</color>
+    <color name="textTitle">#B8B8B8</color>
+    <color name="bgWeekdayHeader">#33FFFFFF</color>
+    <color name="bgSectionSidbar">#4CFFFFFF</color>
+    <color name="textCourse">#FAFAFA</color>
+
+    <color name="bgCourse0">#8AD297</color>
+    <color name="bgCourse1">#31A6D3</color>
+    <color name="bgCourse2">#F9A883</color>
+    <color name="bgCourse3">#88CFCC</color>
+    <color name="bgCourse4">#F7C56B</color>
+    <color name="bgCourse5">#9AB4CF</color>
+    <color name="bgCourse6">#67BDDE</color>
+    <color name="bgCourse7">#9CCF5A</color>
+    <color name="bgCourse8">#6DB69C</color>
+    <color name="bgCourse9">#E2C38A</color>
+    <color name="bgCourse10">#B29FD2</color>
+    <color name="bgCourse11">#0097A7</color>
+    <color name="bgCourse12">#CDDC39</color>
+    <color name="bgCourse13">#F44336</color>
+    <color name="bgCourse14">#FFCCBC</color>
 </resources>
