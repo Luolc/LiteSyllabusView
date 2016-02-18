@@ -25,7 +25,7 @@ public class ScreenshotUtil {
         int height = 0;
         for (int i = 0; i < scrollView.getChildCount(); ++i) {
             height += scrollView.getChildAt(i).getHeight();
-//            scrollView.getChildAt(i).setBackgroundResource(R.drawable.bg_default);
+            scrollView.getChildAt(i).setBackgroundResource(R.drawable.mypku_bg);
             Log.i("mLog", "i="+i);
             Log.i("mLog", scrollView.getChildAt(i).toString());
         }
