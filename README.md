@@ -1,6 +1,6 @@
 # LiteSyllabusView
 
-![Screenshot](https://github.com/Luolc/LiteSyllabusView/blob/master/assets/mySyllabus.png)
+<img src="https://github.com/Luolc/LiteSyllabusView/blob/master/assets/mySyllabus.png" alt="Screenshot" style="width:108;height:192">
 
 This is a simple custom view for Android, which aims to provide an easy way to show syllabus view for users.
 
