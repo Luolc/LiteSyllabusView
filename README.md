@@ -16,7 +16,7 @@ Add Gradle dependency:
 
 ```gradle
 dependencies {
-    compile 'com.luolc.dev:litesyllabusview:1.0.0'
+    compile 'com.luolc.dev:litesyllabusview:1.0.1'
 }
 ```
 
