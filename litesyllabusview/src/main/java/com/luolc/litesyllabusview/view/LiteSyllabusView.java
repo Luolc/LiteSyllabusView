@@ -106,6 +106,13 @@ public class LiteSyllabusView extends LinearLayout {
         mWeekdayHeaderHeight = dip2px(HEADER_HEIGHT_DEFAULT);
         mSectionSidebarWidth = dip2px(SIDEBAR_WIDTH_DEFAULT);
         mTitleTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/ChalkboardSE.ttc");
+        mOnBlankViewClickListener = new OnBlankViewClickListener() {
+            @Override
+            public void onClick(int weekday, int section) {}
+
+            @Override
+            public void onLongClick(int weekday, int section) {}
+        };
 
         setDefaultColorPalette();
         setOrientation(VERTICAL);

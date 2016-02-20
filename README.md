@@ -57,11 +57,15 @@ mLiteSyllabusView.show();
 
 ## Compatibility
 
-Android midSdkVersion 16.
+Android midSdkVersion 14.
 
 ## Change Log
 
-### Version 1.0.0
+#### Version 1.0.1
+
+- Fix crash error when clicking the blank section without initializing the OnClickLister.
+
+#### Version 1.0.0
 
 - Initial Build 
 
