@@ -69,27 +69,30 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Course> getCourses() {
         List<Course> data = new ArrayList<>();
-        data.add(makeCourseEntity("数据库概论", "理教211", 5, 6, 1));
-        data.add(makeCourseEntity("数据库概论", "理教211", 3, 4, 4));
-        data.add(makeCourseEntity("Java程序设计", "未知", 10, 11, 1));
-        data.add(makeCourseEntity("现代电子电路基础及实验(一)", "二教425", 7, 8, 1));
-        data.add(makeCourseEntity("现代电子电路基础及实验(一)", "二教425", 5, 6, 3));
-        data.add(makeCourseEntity("函数式程序设计", "未知", 10, 12, 3));
-        data.add(makeCourseEntity("中国古代政治与文化", "二教205", 10, 11, 0));
-        data.add(makeCourseEntity("遥感概论", "二教525", 1, 2, 1));
-        data.add(makeCourseEntity("遥感概论", "二教525", 7, 8, 4));
-        data.add(makeCourseEntity("物联网技术导论", "二教313", 3, 4, 2));
-        data.add(makeCourseEntity("创新工程实践", "理教308", 10, 12, 2));
+        data.add(makeCourseEntity("数据库概论", "理教211", 5, 6, 1, "双周"));
+        data.add(makeCourseEntity("数据库概论", "理教211", 3, 4, 4, null));
+        data.add(makeCourseEntity("Java程序设计", "未知", 10, 11, 1, null));
+        data.add(makeCourseEntity("现代电子电路基础及实验(一)", "二教425", 7, 8, 1, null));
+        data.add(makeCourseEntity("现代电子电路基础及实验(一)", "二教425", 5, 6, 3, null));
+        data.add(makeCourseEntity("函数式程序设计", "未知", 10, 12, 3, null));
+        data.add(makeCourseEntity("中国古代政治与文化", "二教205", 10, 11, 0, null));
+        data.add(makeCourseEntity("遥感概论", "二教525", 1, 2, 1, null));
+        data.add(makeCourseEntity("遥感概论", "二教525", 7, 8, 4, "单周"));
+        data.add(makeCourseEntity("物联网技术导论", "二教313", 3, 4, 2, null));
+        data.add(makeCourseEntity("大学英语(四)", "文史楼304", 5, 6, 2, null));
+        data.add(makeCourseEntity("地理信息系统原理", "理教203", 1, 2, 0, "单周"));
+        data.add(makeCourseEntity("地理信息系统原理", "理教203", 1, 2, 3, null));
         return data;
     }
 
-    private Course makeCourseEntity(String name, String position, int startSection, int endSection, int weekday) {
+    private Course makeCourseEntity(String name, String position, int startSection, int endSection, int weekday, String note) {
         Course entity = new Course();
         entity.setName(name);
         entity.setPosition(position);
         entity.setStartSection(startSection);
         entity.setEndSection(endSection);
         entity.setWeekday(weekday);
+        entity.setNote(note);
 
         return entity;
     }

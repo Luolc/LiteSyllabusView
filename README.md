@@ -16,7 +16,7 @@ Add Gradle dependency:
 
 ```gradle
 dependencies {
-    compile 'com.luolc.dev:litesyllabusview:1.0.1'
+    compile 'com.luolc.dev:litesyllabusview:1.0.2'
 }
 ```
 
@@ -60,6 +60,10 @@ mLiteSyllabusView.show();
 Android midSdkVersion 14.
 
 ## Change Log
+
+#### Version 1.0.2
+
+- Add note feature for CourseView.
 
 #### Version 1.0.1
 

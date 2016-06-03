@@ -19,6 +19,7 @@ public class CourseView extends LinearLayout {
     private static final float DIVIDER_HEIGHT_DEFAULT = 0.5f;
     private static final int NAME_TEXT_SIZE = 13;
     private static final int POSITION_TEXT_SIZE = 10;
+    private static final int NOTE_TEXT_SIZE = 10;
     private static final int PADDING = 2;
 
     private Context mContext;
@@ -29,6 +30,7 @@ public class CourseView extends LinearLayout {
 
     private TextView tvName;
     private TextView tvPosition;
+    private TextView tvNote;
 
     private Course mData;
 
@@ -58,20 +60,9 @@ public class CourseView extends LinearLayout {
     }
 
     public CourseView getView() {
-        tvName = new TextView(mContext);
-        tvName.setWidth(mSectionWidth);
-        tvName.setText(mData.getName());
-        tvName.setTextSize(NAME_TEXT_SIZE);
-        tvName.setTextColor(ContextCompat.getColor(mContext, R.color.textCourse));
-        tvName.setTypeface(Typeface.DEFAULT_BOLD);
-        tvPosition = new TextView(mContext);
-        tvPosition.setWidth(mSectionWidth);
-        tvPosition.setText("@" + mData.getPosition());
-        tvPosition.setTextSize(POSITION_TEXT_SIZE);
-        tvPosition.setTextColor(ContextCompat.getColor(mContext, R.color.textCourse));
-
-        addView(tvName);
-        addView(tvPosition);
+        setName();
+        setPosition();
+        if (mData.getNote() != null) setNote();
         int durationInSection = mData.getEndSection() - mData.getStartSection() + 1;
         // TODO: 16/2/13 duration判断边界
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(mSectionWidth,
@@ -79,6 +70,34 @@ public class CourseView extends LinearLayout {
         setLayoutParams(params);
 
         return this;
+    }
+
+    private void setName() {
+        tvName = new TextView(mContext);
+        tvName.setWidth(mSectionWidth);
+        tvName.setText(mData.getName());
+        tvName.setTextSize(NAME_TEXT_SIZE);
+        tvName.setTextColor(ContextCompat.getColor(mContext, R.color.textCourse));
+        tvName.setTypeface(Typeface.DEFAULT_BOLD);
+        addView(tvName);
+    }
+
+    private void setPosition() {
+        tvPosition = new TextView(mContext);
+        tvPosition.setWidth(mSectionWidth);
+        tvPosition.setText("@" + mData.getPosition());
+        tvPosition.setTextSize(POSITION_TEXT_SIZE);
+        tvPosition.setTextColor(ContextCompat.getColor(mContext, R.color.textCourse));
+        addView(tvPosition);
+    }
+
+    private void setNote() {
+        tvNote = new TextView(mContext);
+        tvNote.setWidth(mSectionWidth);
+        tvNote.setText("[" + mData.getNote() + "]");
+        tvNote.setTextSize(NOTE_TEXT_SIZE);
+        tvNote.setTextColor(ContextCompat.getColor(mContext, R.color.textCourse));
+        addView(tvNote);
     }
 
     public CourseView getBlankSectionView() {
@@ -101,6 +120,7 @@ public class CourseView extends LinearLayout {
         private int mStartSection;
         private int mEndSection;
         private int mWeekday;
+        private String mNote;
         private OnClickListener mOnClickListener;
         private OnLongClickListener mOnLongClickListener;
 
@@ -160,6 +180,11 @@ public class CourseView extends LinearLayout {
             return this;
         }
 
+        public Builder setNote(String note) {
+            mNote = note;
+            return this;
+        }
+
         public Builder setOnClickListener(OnClickListener listener) {
             mOnClickListener = listener;
             return this;
@@ -180,6 +205,7 @@ public class CourseView extends LinearLayout {
             data.setEndSection(mEndSection);
             data.setWeekday(mWeekday);
             data.setIsEmpty(false);
+            data.setNote(mNote);
             view.setCourseData(data);
             view.setSectionWidth(mSectionWidth);
             view.setSectionHeight(mSectionHeight);

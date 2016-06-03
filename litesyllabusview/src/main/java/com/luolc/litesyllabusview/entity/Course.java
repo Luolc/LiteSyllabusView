@@ -18,6 +18,7 @@ public class Course {
     private int weekday;
     private boolean isEmpty;
     private int backgroundColor;
+    private String note;
     private View.OnClickListener onClickListener;
     private View.OnLongClickListener onLongClickListener;
 
@@ -83,6 +84,14 @@ public class Course {
 
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public View.OnClickListener getOnClickListener() {

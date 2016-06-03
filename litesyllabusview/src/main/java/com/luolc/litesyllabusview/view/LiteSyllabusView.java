@@ -347,6 +347,7 @@ public class LiteSyllabusView extends LinearLayout {
                     .setEndSection(course.getEndSection())
                     .setWeekday(weekday)
                     .setBackgroundColor(course.getBackgroundColor())
+                    .setNote(course.getNote())
                     .setOnClickListener(course.getOnClickListener())
                     .setOnLongClickListener(course.getOnLongClickListener())
                     .create();
