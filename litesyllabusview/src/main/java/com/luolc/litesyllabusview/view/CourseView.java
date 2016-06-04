@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.luolc.litesyllabusview.R;
-import com.luolc.litesyllabusview.entity.Course;
+import com.luolc.litesyllabusview.entity.LiteCourse;
 
 /**
  * Created by Liangchen Luo on 16/2/12.
@@ -16,34 +16,40 @@ import com.luolc.litesyllabusview.entity.Course;
  */
 public class CourseView extends LinearLayout {
 
-    private static final float DIVIDER_HEIGHT_DEFAULT = 0.5f;
-    private static final int NAME_TEXT_SIZE = 13;
-    private static final int POSITION_TEXT_SIZE = 10;
-    private static final int NOTE_TEXT_SIZE = 10;
-    private static final int PADDING = 2;
+    public static final float DIVIDER_HEIGHT_DEFAULT = 0.5f;
+    public static final int NAME_TEXT_SIZE_DEFAULT = 12;
+    public static final int POSITION_TEXT_SIZE_DEFAULT = 9;
+    public static final int NOTE_TEXT_SIZE_DEFAULT = 9;
+    public static final int PADDING = 2;
 
     private Context mContext;
 
     private int mSectionWidth;
     private int mSectionHeight;
     private int mDividerHeight;
+    private int mNameTextSize;
+    private int mPositionTextSize;
+    private int mNoteTextSize;
 
     private TextView tvName;
     private TextView tvPosition;
     private TextView tvNote;
 
-    private Course mData;
+    private LiteCourse mData;
 
     public CourseView(Context context) {
         super(context);
         mContext = context;
         mDividerHeight = dip2px(DIVIDER_HEIGHT_DEFAULT);
+        mNameTextSize = NAME_TEXT_SIZE_DEFAULT;
+        mPositionTextSize = POSITION_TEXT_SIZE_DEFAULT;
+        mNoteTextSize = NOTE_TEXT_SIZE_DEFAULT;
 
         setOrientation(VERTICAL);
         setPadding(dip2px(PADDING), dip2px(PADDING), dip2px(PADDING), dip2px(PADDING));
     }
 
-    public void setCourseData(Course data) {
+    public void setCourseData(LiteCourse data) {
         mData = data;
     }
 
@@ -57,6 +63,18 @@ public class CourseView extends LinearLayout {
 
     public void setDividerHeight(int height) {
         mDividerHeight = height;
+    }
+
+    public void setNameTextSize(int textSize) {
+        mNameTextSize = textSize;
+    }
+
+    public void setPositionTextSize(int textSize) {
+        mPositionTextSize = textSize;
+    }
+
+    public void setNoteTextSize(int textSize) {
+        mNoteTextSize = textSize;
     }
 
     public CourseView getView() {
@@ -76,7 +94,7 @@ public class CourseView extends LinearLayout {
         tvName = new TextView(mContext);
         tvName.setWidth(mSectionWidth);
         tvName.setText(mData.getName());
-        tvName.setTextSize(NAME_TEXT_SIZE);
+        tvName.setTextSize(mNameTextSize);
         tvName.setTextColor(ContextCompat.getColor(mContext, R.color.textCourse));
         tvName.setTypeface(Typeface.DEFAULT_BOLD);
         addView(tvName);
@@ -86,7 +104,7 @@ public class CourseView extends LinearLayout {
         tvPosition = new TextView(mContext);
         tvPosition.setWidth(mSectionWidth);
         tvPosition.setText("@" + mData.getPosition());
-        tvPosition.setTextSize(POSITION_TEXT_SIZE);
+        tvPosition.setTextSize(mPositionTextSize);
         tvPosition.setTextColor(ContextCompat.getColor(mContext, R.color.textCourse));
         addView(tvPosition);
     }
@@ -95,7 +113,7 @@ public class CourseView extends LinearLayout {
         tvNote = new TextView(mContext);
         tvNote.setWidth(mSectionWidth);
         tvNote.setText("[" + mData.getNote() + "]");
-        tvNote.setTextSize(NOTE_TEXT_SIZE);
+        tvNote.setTextSize(mNoteTextSize);
         tvNote.setTextColor(ContextCompat.getColor(mContext, R.color.textCourse));
         addView(tvNote);
     }
@@ -117,16 +135,22 @@ public class CourseView extends LinearLayout {
         private int mBackgroundColor;
         private String mName;
         private String mPosition;
+        private String mNote;
+        private int mNameTextSize;
+        private int mPositionTextSize;
+        private int mNoteTextSize;
         private int mStartSection;
         private int mEndSection;
         private int mWeekday;
-        private String mNote;
         private OnClickListener mOnClickListener;
         private OnLongClickListener mOnLongClickListener;
 
         public Builder(Context context) {
             mContext = context;
             mDividerHeight = NULL_DIVIDER_HEIGHT;
+            mNameTextSize = NAME_TEXT_SIZE_DEFAULT;
+            mPositionTextSize = POSITION_TEXT_SIZE_DEFAULT;
+            mNoteTextSize = NOTE_TEXT_SIZE_DEFAULT;
         }
 
         public Builder setSectionWidth(int width) {
@@ -159,6 +183,26 @@ public class CourseView extends LinearLayout {
             return this;
         }
 
+        public Builder setNote(String note) {
+            mNote = note;
+            return this;
+        }
+
+        public Builder setNameTextSize(int textSize) {
+            mNameTextSize = textSize;
+            return this;
+        }
+
+        public Builder setPositionTextSize(int textSize) {
+            mPositionTextSize = textSize;
+            return this;
+        }
+
+        public Builder setNoteTextSize(int textSize) {
+            mNoteTextSize = textSize;
+            return this;
+        }
+
         public Builder setStartSection(int startSection) {
             mStartSection = startSection;
             return this;
@@ -180,11 +224,6 @@ public class CourseView extends LinearLayout {
             return this;
         }
 
-        public Builder setNote(String note) {
-            mNote = note;
-            return this;
-        }
-
         public Builder setOnClickListener(OnClickListener listener) {
             mOnClickListener = listener;
             return this;
@@ -198,7 +237,7 @@ public class CourseView extends LinearLayout {
         public CourseView create() {
             CourseView view = new CourseView(mContext);
 
-            Course data = new Course();
+            LiteCourse data = new LiteCourse();
             data.setName(mName);
             data.setPosition(mPosition);
             data.setStartSection(mStartSection);
@@ -213,6 +252,9 @@ public class CourseView extends LinearLayout {
             view.setBackgroundColor(mBackgroundColor);
             view.setOnClickListener(mOnClickListener);
             view.setOnLongClickListener(mOnLongClickListener);
+            view.setNameTextSize(mNameTextSize);
+            view.setPositionTextSize(mPositionTextSize);
+            view.setNoteTextSize(mNoteTextSize);
 
             return view.getView();
         }
@@ -220,7 +262,7 @@ public class CourseView extends LinearLayout {
         public CourseView createBlankSection() {
             CourseView view = new CourseView(mContext);
 
-            Course data = new Course();
+            LiteCourse data = new LiteCourse();
             data.setStartSection(mStartSection);
             data.setEndSection(mEndSection);
             data.setWeekday(mWeekday);

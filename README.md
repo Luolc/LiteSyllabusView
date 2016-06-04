@@ -16,7 +16,7 @@ Add Gradle dependency:
 
 ```gradle
 dependencies {
-    compile 'com.luolc.dev:litesyllabusview:1.0.2'
+    compile 'com.luolc.dev:litesyllabusview:1.0.3'
 }
 ```
 
@@ -60,6 +60,10 @@ mLiteSyllabusView.show();
 Android midSdkVersion 14.
 
 ## Change Log
+
+#### Version 1.0.3
+
+- Add setTextSize feature. You can customize the text size of the content of CourseView.
 
 #### Version 1.0.2
 

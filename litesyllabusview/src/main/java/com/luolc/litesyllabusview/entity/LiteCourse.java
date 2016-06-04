@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Liangchen Luo on 16/2/11.
  * @author Liangchen Luo
  */
-public class Course {
+public class LiteCourse {
     private int courseId;
     private String name;
     private String position;

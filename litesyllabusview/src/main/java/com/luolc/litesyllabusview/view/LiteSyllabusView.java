@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.luolc.litesyllabusview.R;
-import com.luolc.litesyllabusview.entity.Course;
+import com.luolc.litesyllabusview.entity.LiteCourse;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -72,13 +72,17 @@ public class LiteSyllabusView extends LinearLayout {
     private int mDividerHeight;
     private Typeface mTitleTypeface;
 
+    private int mCourseNameTextSize;
+    private int mCoursePositionTextSize;
+    private int mCourseNoteTextSize;
+
     private LinearLayout layoutWeekdayHeader;
     private LinearLayout layoutSectionSidebar;
     private LinearLayout layoutCourseTable;
 
     private OnBlankViewClickListener mOnBlankViewClickListener;
 
-    private List<Course> mCourses = new ArrayList<>();
+    private List<LiteCourse> mLiteCourses = new ArrayList<>();
     private int[] mCourseBackgroundColorPalette;
 
     public interface OnBlankViewClickListener {
@@ -105,7 +109,14 @@ public class LiteSyllabusView extends LinearLayout {
         mDividerHeight = dip2px(DIVIDER_HEIGHT_DEFAULT);
         mWeekdayHeaderHeight = dip2px(HEADER_HEIGHT_DEFAULT);
         mSectionSidebarWidth = dip2px(SIDEBAR_WIDTH_DEFAULT);
-        mTitleTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/ChalkboardSE.ttc");
+        mCourseNameTextSize = CourseView.NAME_TEXT_SIZE_DEFAULT;
+        mCoursePositionTextSize = CourseView.POSITION_TEXT_SIZE_DEFAULT;
+        mCourseNoteTextSize = CourseView.NOTE_TEXT_SIZE_DEFAULT;
+        try {
+            mTitleTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/ChalkboardSE.ttc");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
         mOnBlankViewClickListener = new OnBlankViewClickListener() {
             @Override
             public void onClick(int weekday, int section) {}
@@ -125,20 +136,20 @@ public class LiteSyllabusView extends LinearLayout {
         invalidate();
     }
 
-    public void setCourses(List<Course> data) {
-        mCourses.clear();
+    public void setCourses(List<LiteCourse> data) {
+        mLiteCourses.clear();
         if (data == null) return;
-        mCourses.addAll(data);
+        mLiteCourses.addAll(data);
     }
 
-    public void addCourse(Course course) {
-        if (course == null) return;
-        mCourses.add(course);
+    public void addCourse(LiteCourse liteCourse) {
+        if (liteCourse == null) return;
+        mLiteCourses.add(liteCourse);
     }
 
     public void removeCourseById(int id) {
-        for (Course course: mCourses) {
-            if (course.getCourseId() == id) mCourses.remove(course);
+        for (LiteCourse liteCourse : mLiteCourses) {
+            if (liteCourse.getCourseId() == id) mLiteCourses.remove(liteCourse);
         }
     }
 
@@ -149,6 +160,18 @@ public class LiteSyllabusView extends LinearLayout {
 
     public void setCourseBackgroundColors(int[] colors) {
         mCourseBackgroundColorPalette = colors;
+    }
+
+    public void setCourseNameTextSize(int textSize) {
+        mCourseNameTextSize = textSize;
+    }
+
+    public void setCoursePositionTextSize(int textSize) {
+        mCoursePositionTextSize = textSize;
+    }
+
+    public void setCourseNoteTextSize(int textSize) {
+        mCourseNoteTextSize = textSize;
     }
 
     public void setOnBlankViewClickListener(OnBlankViewClickListener listener) {
@@ -186,15 +209,14 @@ public class LiteSyllabusView extends LinearLayout {
         int currentColorIndex = 0;
         int paletteSize = mCourseBackgroundColorPalette.length;
         Map<String, Integer> nameColorMap = new HashMap<>();
-        if (mCourses == null) mCourses = new ArrayList<>();
-        for (Course course: mCourses) {
-            if (nameColorMap.containsKey(course.getName())) {
-                course.setBackgroundColor(nameColorMap.get(course.getName()));
-            }
-            else {
+        if (mLiteCourses == null) mLiteCourses = new ArrayList<>();
+        for (LiteCourse liteCourse : mLiteCourses) {
+            if (nameColorMap.containsKey(liteCourse.getName())) {
+                liteCourse.setBackgroundColor(nameColorMap.get(liteCourse.getName()));
+            } else {
                 int color = mCourseBackgroundColorPalette[currentColorIndex % paletteSize];
-                nameColorMap.put(course.getName(), color);
-                course.setBackgroundColor(color);
+                nameColorMap.put(liteCourse.getName(), color);
+                liteCourse.setBackgroundColor(color);
                 currentColorIndex++;
             }
         }
@@ -285,16 +307,16 @@ public class LiteSyllabusView extends LinearLayout {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(mSectionWidth, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutColumn.setLayoutParams(params);
 
-        List<Course> coursesInCurrentDay = new ArrayList<>();
-        if (mCourses == null) mCourses = new ArrayList<>();
-        for (Course course: mCourses) {
-            if (course.getWeekday() == weekday) {
-                coursesInCurrentDay.add(course);
+        List<LiteCourse> coursesInCurrentDay = new ArrayList<>();
+        if (mLiteCourses == null) mLiteCourses = new ArrayList<>();
+        for (LiteCourse liteCourse : mLiteCourses) {
+            if (liteCourse.getWeekday() == weekday) {
+                coursesInCurrentDay.add(liteCourse);
             }
         }
-        Collections.sort(coursesInCurrentDay, new Comparator<Course>() {
+        Collections.sort(coursesInCurrentDay, new Comparator<LiteCourse>() {
             @Override
-            public int compare(Course lhs, Course rhs) {
+            public int compare(LiteCourse lhs, LiteCourse rhs) {
                 return Integer.valueOf(lhs.getStartSection()).compareTo(rhs.getStartSection());
             }
         });
@@ -305,14 +327,14 @@ public class LiteSyllabusView extends LinearLayout {
         }
         for (int i = 0; i < coursesInCurrentDay.size(); ++i) {
             int blankSectionStartPosition;
-            Course course = coursesInCurrentDay.get(i);
+            LiteCourse liteCourse = coursesInCurrentDay.get(i);
             if (i == 0) {
                 blankSectionStartPosition = 1;
             } else {
                 blankSectionStartPosition = coursesInCurrentDay.get(i-1).getEndSection() + 1;
             }
             // 添加每节课前空课时View
-            for (int j = blankSectionStartPosition; j < course.getStartSection(); ++j) {
+            for (int j = blankSectionStartPosition; j < liteCourse.getStartSection(); ++j) {
                 layoutColumn.addView(getHorizontalDividerView());
                 final int section = j;
                 CourseView blankCourseView = new CourseView.Builder(mContext)
@@ -341,20 +363,23 @@ public class LiteSyllabusView extends LinearLayout {
             CourseView courseView = new CourseView.Builder(mContext)
                     .setSectionWidth(mSectionWidth)
                     .setSectionHeight(mSectionHeight)
-                    .setName(course.getName())
-                    .setPosition(course.getPosition())
-                    .setStartSection(course.getStartSection())
-                    .setEndSection(course.getEndSection())
+                    .setName(liteCourse.getName())
+                    .setPosition(liteCourse.getPosition())
+                    .setNote(liteCourse.getNote())
+                    .setNameTextSize(mCourseNameTextSize)
+                    .setPositionTextSize(mCoursePositionTextSize)
+                    .setNoteTextSize(mCourseNoteTextSize)
+                    .setStartSection(liteCourse.getStartSection())
+                    .setEndSection(liteCourse.getEndSection())
                     .setWeekday(weekday)
-                    .setBackgroundColor(course.getBackgroundColor())
-                    .setNote(course.getNote())
-                    .setOnClickListener(course.getOnClickListener())
-                    .setOnLongClickListener(course.getOnLongClickListener())
+                    .setBackgroundColor(liteCourse.getBackgroundColor())
+                    .setOnClickListener(liteCourse.getOnClickListener())
+                    .setOnLongClickListener(liteCourse.getOnLongClickListener())
                     .create();
             layoutColumn.addView(courseView);
             // 如果是当天最后一节课，添加末尾的空课时View
             if (i == coursesInCurrentDay.size() - 1) {
-                blankSectionStartPosition = course.getEndSection() + 1;
+                blankSectionStartPosition = liteCourse.getEndSection() + 1;
                 for (int j = blankSectionStartPosition; j <= mSectionNumber; ++j) {
                     layoutColumn.addView(getHorizontalDividerView());
                     final int section = j;
