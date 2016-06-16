@@ -16,7 +16,7 @@ Add Gradle dependency:
 
 ```gradle
 dependencies {
-    compile 'com.luolc.dev:litesyllabusview:1.0.3'
+    compile 'com.luolc.dev:litesyllabusview:1.0.4'
 }
 ```
 
@@ -60,6 +60,11 @@ mLiteSyllabusView.show();
 Android midSdkVersion 14.
 
 ## Change Log
+
+#### Version 1.0.4
+
+- Add clear method for LiteSyllabusView. You can remove the CourseViews in it.
+- Optimize the note feature.
 
 #### Version 1.0.3
 

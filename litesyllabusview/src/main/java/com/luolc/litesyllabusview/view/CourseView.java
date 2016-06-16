@@ -80,7 +80,7 @@ public class CourseView extends LinearLayout {
     public CourseView getView() {
         setName();
         setPosition();
-        if (mData.getNote() != null) setNote();
+        if (mData.getNote() != null && !"".equals(mData.getNote())) setNote();
         int durationInSection = mData.getEndSection() - mData.getStartSection() + 1;
         // TODO: 16/2/13 duration判断边界
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(mSectionWidth,

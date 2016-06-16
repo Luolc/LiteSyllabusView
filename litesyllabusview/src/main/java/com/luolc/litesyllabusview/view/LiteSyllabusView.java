@@ -129,6 +129,10 @@ public class LiteSyllabusView extends LinearLayout {
         setOrientation(VERTICAL);
     }
 
+    public void clear() {
+        mLiteCourses.clear();
+    }
+
     public void show() {
         calculateSectionSize();
         generateCourseBackground();
