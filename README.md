@@ -16,7 +16,7 @@ Add Gradle dependency:
 
 ```gradle
 dependencies {
-    compile 'com.luolc.dev:litesyllabusview:1.0.4'
+    compile 'com.luolc.dev:litesyllabusview:1.0.5'
 }
 ```
 
@@ -60,6 +60,11 @@ mLiteSyllabusView.show();
 Android midSdkVersion 14.
 
 ## Change Log
+
+#### Version 1.0.5
+
+- Change the type of `LiteCourse.courseId` from **int** to **String**.
+- Add active feature for LiteCourse. An inactive CourseView would displayed translucently.
 
 #### Version 1.0.4
 

@@ -2,31 +2,29 @@ package com.luolc.litesyllabusview.entity;
 
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Liangchen Luo on 16/2/11.
  * @author Liangchen Luo
  */
 public class LiteCourse {
-    private int courseId;
-    private String name;
-    private String position;
-    private int startSection;
-    private int EndSection;
-    private int weekday;
-    private boolean isEmpty;
-    private int backgroundColor;
-    private String note;
-    private View.OnClickListener onClickListener;
-    private View.OnLongClickListener onLongClickListener;
+    protected String courseId;
+    protected String name;
+    protected String position;
+    protected int startSection;
+    protected int EndSection;
+    protected int weekday;
+    protected boolean isEmpty;
+    protected int backgroundColor;
+    protected String note;
+    protected boolean active;
+    protected View.OnClickListener onClickListener;
+    protected View.OnLongClickListener onLongClickListener;
 
-    public int getCourseId() {
+    public String getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(int courseId) {
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 
@@ -92,6 +90,14 @@ public class LiteCourse {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public View.OnClickListener getOnClickListener() {

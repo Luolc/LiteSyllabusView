@@ -21,21 +21,22 @@ public class CourseView extends LinearLayout {
     public static final int POSITION_TEXT_SIZE_DEFAULT = 9;
     public static final int NOTE_TEXT_SIZE_DEFAULT = 9;
     public static final int PADDING = 2;
+    public static final int INACTIVE_ALPHA_DEFAULT = (int) (0xFF * 0.20);
 
-    private Context mContext;
+    protected Context mContext;
 
-    private int mSectionWidth;
-    private int mSectionHeight;
-    private int mDividerHeight;
-    private int mNameTextSize;
-    private int mPositionTextSize;
-    private int mNoteTextSize;
+    protected int mSectionWidth;
+    protected int mSectionHeight;
+    protected int mDividerHeight;
+    protected int mNameTextSize;
+    protected int mPositionTextSize;
+    protected int mNoteTextSize;
 
-    private TextView tvName;
-    private TextView tvPosition;
-    private TextView tvNote;
+    protected TextView tvName;
+    protected TextView tvPosition;
+    protected TextView tvNote;
 
-    private LiteCourse mData;
+    protected LiteCourse mData;
 
     public CourseView(Context context) {
         super(context);
@@ -142,6 +143,7 @@ public class CourseView extends LinearLayout {
         private int mStartSection;
         private int mEndSection;
         private int mWeekday;
+        private boolean mActive;
         private OnClickListener mOnClickListener;
         private OnLongClickListener mOnLongClickListener;
 
@@ -151,6 +153,7 @@ public class CourseView extends LinearLayout {
             mNameTextSize = NAME_TEXT_SIZE_DEFAULT;
             mPositionTextSize = POSITION_TEXT_SIZE_DEFAULT;
             mNoteTextSize = NOTE_TEXT_SIZE_DEFAULT;
+            mActive = true;
         }
 
         public Builder setSectionWidth(int width) {
@@ -224,6 +227,11 @@ public class CourseView extends LinearLayout {
             return this;
         }
 
+        public Builder setActive(boolean active) {
+            mActive = active;
+            return this;
+        }
+
         public Builder setOnClickListener(OnClickListener listener) {
             mOnClickListener = listener;
             return this;
@@ -255,7 +263,7 @@ public class CourseView extends LinearLayout {
             view.setNameTextSize(mNameTextSize);
             view.setPositionTextSize(mPositionTextSize);
             view.setNoteTextSize(mNoteTextSize);
-
+            if (!mActive) view.getBackground().setAlpha(INACTIVE_ALPHA_DEFAULT);
             return view.getView();
         }
 

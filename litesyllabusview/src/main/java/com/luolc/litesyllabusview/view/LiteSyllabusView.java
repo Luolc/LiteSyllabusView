@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -151,9 +152,9 @@ public class LiteSyllabusView extends LinearLayout {
         mLiteCourses.add(liteCourse);
     }
 
-    public void removeCourseById(int id) {
+    public void removeCourseById(String id) {
         for (LiteCourse liteCourse : mLiteCourses) {
-            if (liteCourse.getCourseId() == id) mLiteCourses.remove(liteCourse);
+            if (id.equals(liteCourse.getCourseId())) mLiteCourses.remove(liteCourse);
         }
     }
 
@@ -377,10 +378,14 @@ public class LiteSyllabusView extends LinearLayout {
                     .setEndSection(liteCourse.getEndSection())
                     .setWeekday(weekday)
                     .setBackgroundColor(liteCourse.getBackgroundColor())
+                    .setActive(liteCourse.isActive())
                     .setOnClickListener(liteCourse.getOnClickListener())
                     .setOnLongClickListener(liteCourse.getOnLongClickListener())
                     .create();
-            layoutColumn.addView(courseView);
+            FrameLayout courseFrame = new FrameLayout(mContext);
+            courseFrame.addView(courseView);
+            courseFrame.setBackgroundResource(R.drawable.litesyllabusview_shade);
+            layoutColumn.addView(courseFrame);
             // 如果是当天最后一节课，添加末尾的空课时View
             if (i == coursesInCurrentDay.size() - 1) {
                 blankSectionStartPosition = liteCourse.getEndSection() + 1;
